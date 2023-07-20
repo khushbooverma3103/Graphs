@@ -1,0 +1,8 @@
+int countingGraphs(int N)
+{
+    // Write your code here.
+    int ans=0;
+    int edges= N*(N-1) /2;
+    ans= pow(2,edges);
+    return ans;
+}
