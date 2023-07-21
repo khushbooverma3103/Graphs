@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+class Solution{
+    private:
+     bool checkforCycle(int root,vector<int>&vis,vector<int>adj[]){
+         queue<pair<int,int>>q;
+         vis[root]=1;
+         q.push({root,-1});
+         
+         while(!q.empty()){
+             int node=q.front().first;
+             int par=q.front().second;
+             q.pop();
+             
+             for(auto it:adj[node]){
+                 if(!vis[it]){
+                     vis[it]=1;
+                     q.push({it,node});
+                 }
+                 else if(it!=par){
+                     return true;
+                 }
+             }
+             
+             
+         }
+       	return false;
+     }
+    public:
+     bool detectCycle(int n,vector<int>adj[]){
+         vector<int>vis(n,0);
+         for(int i=0;i<n;i++){
+             if(!vis[i]){
+                 if(checkforCycle(i,vis,adj)){
+                     return true;
+                 }
+             }
+         }
+         
+         return false;
+     }
+};
+
+int main() {
+
+	int n,m;
+    cin>>n>>m;
+    
+    vector<int>adj[n];
+    
+    for(int i=0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    
+    Solution obj;
+    if(obj.detectCycle(n,adj)){
+        cout<<"True"<<endl;
+    }
+    else{
+        cout<<"False"<<endl;
+    }
+//     return false;
+
+	return 0;
+}
